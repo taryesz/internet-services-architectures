@@ -1,0 +1,143 @@
+@host = localhost
+@port = 8080
+@baseUrl = http://{{host}}:{{port}}/api
+@contentType = application/json
+
+### UTWORZENIE 2 GATUNKOW
+
+POST {{baseUrl}}/genres
+Content-Type: {{contentType}}
+
+{
+  "name": "Comedy",
+  "actionIndex": 10
+}
+
+> {% client.global.set("comedyId", response.body.id); %}
+
+###
+
+POST {{baseUrl}}/genres
+Content-Type: {{contentType}}
+
+{
+  "name": "Drama",
+  "actionIndex": 20
+}
+
+> {% client.global.set("dramaId", response.body.id); %}
+
+
+
+### WCZYTANIE WSZYSTKICH GATUNKOW
+
+GET {{baseUrl}}/genres
+Accept: {{contentType}}
+
+
+
+### WCZYTANIE POJEDYNCZEGO GATUNKU
+
+GET {{baseUrl}}/genres/{{comedyId}}
+Accept: {{contentType}}
+
+
+
+### MODYFIKACJA POJEDYNCZEGO GATUNKU
+
+PATCH {{baseUrl}}/genres/{{comedyId}}
+Content-Type: {{contentType}}
+
+{
+  "name": "Comedy (Patched)"
+}
+
+
+
+### DODANIE FILMOW (I PRZYPISANIE DO WLASCIWEGO GATUNKU
+
+POST {{baseUrl}}/genres/{{comedyId}}/movies
+Content-Type: {{contentType}}
+
+{
+  "title": "Funny Movie",
+  "rating": 9,
+  "pegi": true
+}
+
+> {% client.global.set("funnyMovieId", response.body.id); %}
+
+###
+
+POST {{baseUrl}}/genres/{{dramaId}}/movies
+Content-Type: {{contentType}}
+
+{
+  "title": "Sad Movie",
+  "rating": 8,
+  "pegi": false
+}
+
+> {% client.global.set("sadMovieId", response.body.id); %}
+
+
+
+### WCZYTANIE WSZYSTKICH FILMOW O KONKRETNYM GATUNKU
+
+GET {{baseUrl}}/genres/{{comedyId}}/movies
+Accept: {{contentType}}
+
+###
+
+GET {{baseUrl}}/genres/{{dramaId}}/movies
+Accept: {{contentType}}
+
+
+
+### WCZYTANIE WSZYSTKICH FILMOW
+
+GET {{baseUrl}}/movies
+Accept: {{contentType}}
+
+
+
+### MODYFIKACJA FILMU
+
+PATCH {{baseUrl}}/movies/{{funnyMovieId}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Funny Movie (Patch)"
+}
+
+
+
+### USUWANIE FILMOW
+
+DELETE {{baseUrl}}/movies/{{sadMovieId}}
+
+###
+
+DELETE {{baseUrl}}/movies/{{funnyMovieId}}
+
+
+
+### USUWANIE GATUNKOW
+
+DELETE {{baseUrl}}/genres/{{dramaId}}
+
+###
+
+DELETE {{baseUrl}}/genres/{{comedyId}}
+
+
+
+### SPRAWDZENIE STANU BAZY DANYCH
+
+GET {{baseUrl}}/genres
+Accept: {{contentType}}
+
+###
+
+GET {{baseUrl}}/movies
+Accept: {{contentType}}

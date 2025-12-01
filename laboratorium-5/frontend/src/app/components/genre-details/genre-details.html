@@ -1,0 +1,29 @@
+<div class="container" *ngIf="genre"> <button routerLink="/genres">Wróć do listy gatunków</button>
+
+  <h1>Szczegóły gatunku</h1>
+  <p>Nazwa: {{ genre.name }}</p>
+  <p>Współczynnik akcji: {{ genre.actionIndex }}</p>
+
+  <button [routerLink]="['/genres', genre.id, 'movies', 'add']">Dodaj nowy film</button>
+
+  <hr>
+
+  <h3>Filmy w tej kategorii</h3>
+
+  <div *ngIf="movies.length > 0; else noMovies">
+    <ul>
+      <li *ngFor="let movie of movies">
+
+        <a [routerLink]="['/genres', genre.id, 'movies', movie.id]">{{ movie.title }}</a>
+
+        <button [routerLink]="['/genres', genre.id, 'movies', movie.id, 'edit']">Edytuj</button>
+
+        <button (click)="onDeleteMovie(movie.id)">Usuń film</button>
+
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noMovies><p>Brak filmów w tej kategorii.</p></ng-template>
+
+</div>

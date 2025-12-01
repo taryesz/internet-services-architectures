@@ -1,0 +1,22 @@
+<div class="container">
+
+  <h2>{{ id ? 'Edytuj gatunek' : 'Dodaj nowy gatunek' }}</h2>
+
+  <form (ngSubmit)="onSubmit()">
+
+    <div>
+      <label for="name">Nazwa:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="name" required>
+    </div>
+
+    <div>
+      <label for="action_index">Współczynnik akcji:</label>
+      <input type="text" id="action_index" name="action_index" [(ngModel)]="actionIndex" required>
+    </div>
+
+    <button type="submit">Zapisz</button>
+    <button type="button" routerLink="/genres">Anuluj</button>
+
+  </form>
+
+</div>

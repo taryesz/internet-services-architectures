@@ -1,0 +1,24 @@
+<div class="container" *ngIf="movie">
+
+  <button [routerLink]="['/genres', genreId]">Wróć do kategorii</button>
+
+  <hr>
+
+  <h1>{{ movie.title }}</h1>
+
+  <div class="details-card">
+
+    <p><strong>ID Filmu:</strong> {{ movie.id }}</p>
+    <p><strong>Ocena:</strong> {{ movie.rating }} / 10</p>
+
+    <p><strong>Kategoria wiekowa:</strong>
+      <span>
+        {{ movie.pegi ? '18+ (PEGI)' : 'Dla wszystkich' }}
+      </span>
+    </p>
+
+  </div>
+
+</div>
+
+<p *ngIf="!movie">Ładowanie danych filmu...</p>

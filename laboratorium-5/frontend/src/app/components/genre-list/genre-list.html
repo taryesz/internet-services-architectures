@@ -1,0 +1,20 @@
+<div class="container">
+
+  <h2>Lista gatunków</h2>
+
+  <button routerLink="/genres/add">Dodaj nową kategorię</button>
+  <hr>
+
+  <ul>
+    <li *ngFor="let genre of genres">
+
+      <a [routerLink]="['/genres', genre.id]">{{ genre.name }}</a>
+      <button [routerLink]="['/genres', genre.id, 'edit']">Edytuj</button>
+      <button (click)="onDelete(genre.id)">Usuń</button>
+
+    </li>
+  </ul>
+
+  <p *ngIf="genres.length === 0">Brak gatunków do wyświetlenia.</p>
+
+</div>
